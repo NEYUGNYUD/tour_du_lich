@@ -68,7 +68,9 @@ function showCategories($categories, $parent_id = 0, $char = '') {
     if ($cate_child) {
         foreach ($cate_child as $key => $item) {
             // Hiển thị tiêu đề chuyên mục
-            echo "<li><a href = 'listtour/$item->place_id'>Du Lịch ".$item->place_name.'</a>';
+            echo "<li><a href = '";
+            echo URL("listtour/".$item->place_id);
+            echo "'>Du Lịch ".$item->place_name.'</a>';
             echo "<ul style = 'width: auto;'>";
             // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
             showCategories($categories, $item->place_id,"");
