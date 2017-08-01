@@ -57,21 +57,24 @@
                     </div>
                     <!-- /input-group -->
                 </li>
+                <!-- chỉ có quản lý mới được xem 2 trang này -->
                 <li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="{{asset(route('getDashBoard'))}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
+                @if($loginInfor->locked == NULL && $loginInfor->level == 1)
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-users fa-fw"></i>Nhân viên<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">List Category</a>
+                            <a href="{{asset(route('listEmployee'))}}">List User</a>
                         </li>
                         <li>
-                            <a href="#">Add Category</a>
+                            <a href="{{asset(route('getAddEmployee'))}}">Add User</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                @endif
 
                 <li>
                     <a href="#"><i class="fa fa-cube fa-fw"></i>Phương tiện<span class="fa arrow"></span></a>
@@ -113,6 +116,19 @@
                 </li>
 
                 <li>
+                    <a href="#"><i class="fa fa-cube fa-fw"></i>Mã giảm giá<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{asset(route('listDiscount'))}}">Danh sách mã giảm giá</a>
+                        </li>
+                        <li>
+                            <a href="{{asset(route('getAddDiscount'))}}">Thêm mã giảm giá</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
+                <li>
                     <a href="#"><i class="fa fa-cube fa-fw"></i>Tour du lịch<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -133,19 +149,6 @@
                         </li>
                         <li>
                             <a href="{{asset(route('getAddTourCoupon'))}}">Thêm phiếu tour</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-
-                <li>
-                    <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">List User</a>
-                        </li>
-                        <li>
-                            <a href="#">Add User</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

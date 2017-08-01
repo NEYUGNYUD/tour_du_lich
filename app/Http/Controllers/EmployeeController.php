@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller {
 
+	public function dashboard() {
+		return view('admin.employee.dashboard');
+	}
 	/**
 	* Display a listing of the resource.
 	*
@@ -130,11 +133,7 @@ class EmployeeController extends Controller {
 			'locked' => NULL
 		);
 		if(Auth::attempt($infor)) {
-			if(Auth::user()->level == 1) {
-				return redirect()->intended('admin/employee/list');
-			} else {
-				return redirect()->intended('admin/place/list');
-			}
+			return redirect()->intended('admin/dashboard');
 		} else {
 			return redirect('admin/login')->with('noti', 'Thông tin đăng nhập không đúng.');
 		}

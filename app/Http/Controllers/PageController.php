@@ -11,7 +11,6 @@ use App\Tour;
 use App\Place;
 use App\Customer;
 use App\Http\Requests\AddCustomer;
-
 class PageController extends Controller {
 
 	/**
@@ -48,7 +47,7 @@ class PageController extends Controller {
 
 	public function index()
 	{
-		$listTours = DB::table('tbl_tours')->where('locked', '=', NULL)->paginate(10);
+		$listTours = DB::table('tbl_tours')->where('locked', '=', NULL)->paginate(8);
 		return view('pages.index', compact('listTours'));
 
 	}
@@ -122,7 +121,7 @@ class PageController extends Controller {
 		$resultTour = DB::table('tbl_tours')
 			->where('journey', 'like', "%$idPlace%")
 			->where('locked', '=', NULL)
-			->paginate(10);
+			->paginate(8);
 		return view('pages.listtour', compact('resultTour'));
 	}
 

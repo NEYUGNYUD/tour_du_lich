@@ -46,7 +46,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-2 logo">
-                            <a href="index.php"><img src="<?php getUrlThemeActive();?>user_asset/images/Sunshine_Logo.png" alt="" class="img-responsive"/></a>
+                            <a href="{{asset(route('index'))}}"><img src="<?php getUrlThemeActive();?>user_asset/images/viettravel_logo.png" alt="" class="img-responsive"/></a>
                         </div>
                     </div>
                 </div>

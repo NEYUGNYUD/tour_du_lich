@@ -13,6 +13,10 @@ Route::get('test', function() {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'loginEmployee'], function() {
+	Route::get('dashboard', [
+		'as' => 'getDashBoard',
+		'uses' => 'EmployeeController@dashboard'
+	]);
 	//nhân viên
 	Route::group(['prefix' => 'employee', 'middleware' => 'loginAdmin'], function() {
 		Route::get('list', [

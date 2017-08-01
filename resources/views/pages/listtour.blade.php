@@ -120,17 +120,8 @@ Trang chủ
     <!-- End: Danh sách 10 tour du lịch -->
 
     <!-- Đánh số trang -->
-    <div class="pager">
-        <ul class="page-numbers">
-            <li><a class="page-numbers disable">Trước</a></li>
-            <li><a class="page-numbers active">1</a></li>
-            <li><a class="page-numbers" href="">2</a></li>
-            <li><a class="page-numbers" href="">3</a></li>
-            <li><a class="page-numbers" href="">4</a></li>
-            <li><a class="page-numbers" href="">5</a></li>
-            <li><a class="page-numbers" href="">6</a></li>
-            <li><a class="page-numbers" href="">Tiếp theo</a></li>
-        </ul>
+    <div style="text-align: center;">
+        <?php echo $resultTour->render(); ?>
     </div>
     <!-- end: Đánh số trang -->
 </article>
