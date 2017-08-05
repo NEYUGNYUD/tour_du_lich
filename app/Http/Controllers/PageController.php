@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\DB;
 use App\Tour;
 use App\Place;
 use App\Customer;
+use App\TourCoupon;
 use App\Http\Requests\AddCustomer;
+use App\Http\Requests\BookTour;
 class PageController extends Controller {
 
 	/**
@@ -40,52 +42,21 @@ class PageController extends Controller {
 		$tourVehicles = DB::table('tbl_vehicles')->select('vehicle_id', 'class_name')->get();
 		View::share('tourVehicles', $tourVehicles);
 
-		// if(Auth::guard('customer')->checked()){
-		// 	View::share('customer', Auth::guard('customer'));
-		// }
-	}
-
-	public function index()
-	{
 		$listTours = DB::table('tbl_tours')->where('locked', '=', NULL)->paginate(8);
-		return view('pages.index', compact('listTours'));
-
-	}
-
-	public function getLoginUser() {
-		return view('pages.login');
-	}
-
-	public function postLoginUser(LoginRequest $request) {
-		$customerInfor = array(
-			'email' => $request->email,
-			'password' => $request->password
-		);
-
-		if(Auth::attempt($customerInfor)) {
-			return redirect()->route('index');
+		View::share('listTours', $listTours);
+		if(Auth::check()) {
+			if(Auth::user()->level == 2)
+			View::share('customer', Auth::user());
 		}
-		return view('pages.login')->with('noti', 'Thông tin đăng nhập không chính xác.');
-	}
-	public function getRegistryUser() {
-		return view('pages.registry');
+
 	}
 
-	public function postRegistryUser(AddCustomer $request) {
-		$customer = new Customer();
-		$customer->customer_name = trim($request->name);
-		$customer->dob = $request->dob;
-		// var_dump($customer->dob); die();
-		$customer->gender = $request->gender;
-		$customer->email = trim($request->email);
-		$customer->password = bcrypt($request->password);
-		$customer->passport = trim($request->passport);
-		$customer->address = trim($request->address);
-		$customer->created_at = date('Y-m-d H:i:s');
-		$customer->updated_at = date('Y-m-d H:i:s');
-		$customer->save();
-		return redirect()->route('getLoginUser')->with('noti', 'Bạn đã đăng ký thành công tài khoản');
+	public function index() {
+		$topTour = DB::table('tbl_tours')->select('tour_id', 'tour_name', 'journey', 'base_price', 'sale_price')->orderBy('created_at', 'desc')->take(3)->get();
+		return view('pages.index', compact('topTour'));
 	}
+
+
 
 	public function getDetailTour($idTour) {
 		$tour = Tour::find($idTour);
@@ -132,5 +103,14 @@ class PageController extends Controller {
 			->where('locked', '=', NULL)
 			->take(3)->get();
 		return view('pages.booktour', compact('tour', 'relativeTours'));
+	}
+
+	public function postBookTour(BookTour $request) {
+		$tourCoupon = new tourCoupon();
+	 	$bookedTour = Tour::find($request->tourId);
+		$tourCoupon->tour_id = $request->tourId;
+		$tourCoupon->customer_id = 4;
+		$tourCoupon->adult_number = $request->adult;
+		$tourCoupon->children_number = $request->child;
 	}
 }

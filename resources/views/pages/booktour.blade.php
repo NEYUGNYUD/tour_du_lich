@@ -188,9 +188,26 @@ Book tour
         </div>
         <hr>
         <!-- form thanh toán -->
-        <form action="/thanh-toan-tour-du-lich" id="booktour-form" method="post" style="background-color: #b2dba1; padding: 10px">
+        <!-- thông báo lỗi -->
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        @if(session('noti'))
+        <div class="alert alert-success">
+            {{session("noti")}}
+        </div>
+        @endif
+        <!-- end: thông báo lỗi -->
+        <form action="{{asset(route('postBookTour'))}}" id="booktour-form" method="post" style="background-color: #b2dba1; padding: 10px">
             <div>
-
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="tourId" id="tourId" value="{{$tour->tour_id}}"/>
                 <div class="mda-tilte-3">
                     <span class="mda-tilte-name" style="font-weight: bold; color: red">THÔNG TIN ĐẶT TOUR CỦA KHÁCH HÀNG</span>
                 </div>
@@ -214,25 +231,18 @@ Book tour
                     <p class="clearfix"></p>
                     <div class="form-group col-md-4">
                         <label for="adult">Người lớn: </label>
-                        <input type="number" name="adult" id="adult" class="form-control mda-quantity tour-quantity1 q-adult1" value="1" min="1" max="5" placeholder="Số lượng người lớn"/>
+                        <input type="number" name="adult" id="adult" class="form-control mda-quantity tour-quantity1 q-adult1" min="1" placeholder="Số lượng người lớn"/>
 
                     </div>
                     <div class="form-group col-md-4">
                         <label for="child">Trẻ em(7 - 14 tuổi ): </label>
-                        <input type="number" name="child" id="child" class="form-control mda-quantity tour-quantity1 q-child1" min="0" value="0" placeholder="Số lượng trẻ em từ 7 - 14 tuổi"/>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="baby">Trẻ nhỏ(0 - 7 tuổi ): </label>
-                        <input type="number" name="baby" id="baby" class="form-control mda-quantity tour-quantity1 q-baby1" min="0" value="0" placeholder="Số lượng trẻ dưới 7 tuổi"/>
+                        <input type="number" name="child" id="child" class="form-control mda-quantity tour-quantity1 q-child1" min="0" placeholder="Số lượng trẻ em từ 7 - 14 tuổi"/>
                     </div>
 
                 </div>
                 <p class="clearfix"></p>
-            </div>
-            <div class="mda-tilte-3">
-                <span class="mda-tilte-name" style="font-weight: bold; color:red">THÔNG TIN KHÁCH HÀNG ĐI TOUR</span>
-            </div>
+            </di>
+
             <div class="mda-tour-customer mda-price-tour-r">
                 <table style="width: 100%" class="mda-table table">
                     <thead>
@@ -249,19 +259,20 @@ Book tour
                                 <div class="clearfix mda-row-f promo-box footer-sumary">
                                     <div class="mda-col mda-col-2">
                                         <span style="width:75%; float:left">
-                                            <input name="discountcode" style="width: 100%;" class="form-control" placeholder="Nhập M&#227; Giảm Gi&#225;" />
+                                            <input name="discountCode" id="discountCode" style="width: 100%;" class="form-control" placeholder="Nhập M&#227; Giảm Gi&#225;" />
                                         </span> &nbsp; &nbsp;
-                                        <button  class="btn btn-primary ">Check</button>
+                                        <button type="submit" class="btn btn-primary" onclick="loadDoc()">Check</button>
                                     </div>
                                 </div>
                             </td>
                             <td><span id="promo-pricediscount"></span></td>
                         </tr>
                         <tr>
+                            <input type="hidden" value="{{$tour->sale_price}}" name="salePrice" id="salePrice"/>
                             <td colspan="5"></td>
                             <td colspan="3"><strong>Tổng giá trị tour</strong></td>
                             <td class="price right">
-                                <input type="hidden" id="sumary-hidden" value="0" />
+                                <input type="text" value="0" readonly />
                                 <span class="mda-money" id="sumary" style="max-width: 80px; text-align:right"></span>đ
 
                             </td>
@@ -270,28 +281,17 @@ Book tour
                             <td colspan="5"></td>
                             <td colspan="3"><strong>Tiền đặt cọc</strong></td>
                             <td class="price right">
-                                <input type="hidden" name="holdprice" id="holdprice-hidden" value="0" />
+                                <input type="text" name="holdprice" value="0" readonly/>
                                 <span class="mda-money" id="holdprice" style="max-width: 80px; text-align:right"></span>đ
-
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <td colspan="5"></td>
-                            <td colspan="3"><strong>Phí dịch vụ</strong></td>
-                            <td class="price right">
-                                <input type="hidden" name="serviceprice" id="serviceprice-hidden" value="0" />
-                                <span class="mda-money" id="serviceprice" style="max-width: 80px; text-align:right"></span>đ
-
-                            </td>
-                        </tr> -->
 
                         <tr>
                             <td colspan="5"></td>
                             <td colspan="3"><strong>Thanh toán</strong></td>
                             <td class="price right">
-                                <input type="hidden" id="payprice-hidden" value="0" />
+                                <input type="text" value="0" readonly/>
                                 <span class="mda-money" id="payprice" style="max-width: 80px; text-align:right"></span>đ
-
                             </td>
                         </tr>
                     </tfoot>
@@ -303,17 +303,13 @@ Book tour
                     <span class="mda-tilte-name" style="font-weight: bold; color: red">Hình thức thanh toán</span>
                 </div>
                 <label class="radio-inline">
-                    <input type="radio" name="paymethod" checked value="mallualy" class="payment-method"><strong>Thanh to&#225;n tại Du Lịch Việt</strong>
+                    <input type="radio" name="paymethod" checked value="mallualy" class="payment-method"><strong>Thanh toán tại công ty</strong>
                 </label>
                 <label class="radio-inline">
                     <input type="radio" name="paymethod"  value="bankCard" class="payment-method"><strong>Thanh to&#225;n qua thẻ ngân hàng</strong>
                 </label>
             </div>
-            <!-- <div class="">
-                <input type="checkbox" name="isbilling" class="is-billing" value="1" />Xuất Hóa Đơn
-                <textarea name="billinginfo" placeholder="Th&#244;ng Tin C&#244;ng Ty(&#237;t hơn 1000 k&#253; tự)" class="billing-info form-control" style="display:none;"></textarea>
 
-            </div> -->
             <p class="clearfix"></p>
             <div class="mda-provision">
                 <h3>Điều khoản thanh toán</h3>
@@ -348,58 +344,56 @@ Book tour
                 </div>
                 <br />
                 <div class="pull-left">
-                    <label class="radio-inline"><input type="checkbox" id="accept-policy" checked><strong> Tôi đã đọc và chấp nhận điều khoản trên</strong></label>
+                    <label class="radio-inline"><input type="checkbox" name id="accept-policy" required><strong> Tôi đã đọc và chấp nhận điều khoản trên</strong></label>
                 </div>
-                <input type="hidden" name="codeDay" id="codeDay" value="15-07-2017" />
+                <!-- <input type="hidden" name="codeDay" id="codeDay" value="15-07-2017" />
                 <input type="hidden" name="customerlistjson" id="customerlist-json" />
                 <input type="hidden" id="valid-customerjson" />
                 <input type="hidden" name="type" value="3" />
                 <input type="hidden" id="sumary-post" name="sumary" value="0" />
-                <input type="hidden" name="scheduleid" value="1cwPgwrvoPI%3d" />
+                <input type="hidden" name="scheduleid" value="1cwPgwrvoPI%3d" /> -->
                 <div class="panel-body">
                     <div class=" clearfix pull-right">
-
                         <input class="btn btn-success" type="submit" value="HOÀN TẤT ĐẶT TOUR" />
-
-
                     </div>
                 </div>
             </form>
             <!-- end: form thanh toán -->
+            <div>
+                <div class="hotel_relate">
+                    <h3>Tour du lịch liên quan</h3>
+                    <div class="row">
+                        @foreach($relativeTours as $relativeTour)
+                            <div class="col-sm-4">
+                                <div class="hr_item">
+                                    <!-- giá tour liên quan -->
+                                    <div class="">
+                                        <strong class="btn btn-primary"><?php echo number_format((float)$relativeTour->sale_price); ?> Đ</strong>
 
-            <div class="hotel_relate">
-                <h3>Tour du lịch liên quan</h3>
-                <div class="row">
-                    @foreach($relativeTours as $relativeTour)
-                        <div class="col-sm-4">
-                            <div class="hr_item">
-                                <!-- giá tour liên quan -->
-                                <div class="">
-                                    <strong class="btn btn-primary"><?php echo number_format((float)$relativeTour->sale_price); ?> Đ</strong>
+                                        <a href="{{asset(route('getBookTour', ['tourId' => $relativeTour->tour_id]))}}" class="btn btn_slide">Đặt tour ngay</a>
+                                    </div> <br>
+                                    <!-- end: giá tour liên quan -->
 
-                                    <a href="{{asset(route('getBookTour', ['tourId' => $relativeTour->tour_id]))}}" class="btn btn_slide">Đặt tour ngay</a>
-                                </div> <br>
-                                <!-- end: giá tour liên quan -->
+                                    <div class="image_hotel">
+                                        @foreach($tourImages as $img)
+                                            @if($img->tour_id == $relativeTour->tour_id)
+                                                <a href="{{asset(route('getDetailTour', ['idTour' => $relativeTour->tour_id]))}}"><img src="{{$img->image}}" alt="tour_image" class="img-responsive"></a>
+                                                <?php break; ?>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="info_hotel">
+                                    <h3><a href="{{asset(route('getDetailTour', ['idTour' => $relativeTour->tour_id]))}}">{{$relativeTour->tour_name}}</a> </h3>
+                                    <!-- giá vé tour -->
 
-                                <div class="image_hotel">
-                                    @foreach($tourImages as $img)
-                                        @if($img->tour_id == $relativeTour->tour_id)
-                                            <a href="{{asset(route('getDetailTour', ['idTour' => $relativeTour->tour_id]))}}"><img src="{{$img->image}}" alt="tour_image" class="img-responsive"></a>
-                                            <?php break; ?>
-                                        @endif
-                                    @endforeach
+                                    <!-- end: giá vé tour -->
                                 </div>
                             </div>
-                            <div class="info_hotel">
-                                <h3><a href="{{asset(route('getDetailTour', ['idTour' => $relativeTour->tour_id]))}}">{{$relativeTour->tour_name}}</a> </h3>
-                                <!-- giá vé tour -->
-
-                                <!-- end: giá vé tour -->
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-
+            </div>
             </article>
             @endsection
 
@@ -407,7 +401,16 @@ Book tour
             @section('sidebar')
             @include('layout.sidebar')
             @endsection
-            <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
-            <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-            <script type="text/javascript" src="js/jquery.elastislide.js"></script>
-            <script type="text/javascript" src="js/gallery.js"></script>
+
+            @section('script')
+            <script>
+            function loadDoc() {
+                var xhttp = new XMLHttpRequestObject();
+            }
+            </script>
+            @endsection
+
+            <!-- <script type="text/javascript" src="user_asset/js/jquery.tmpl.min.js"></script>
+            <script type="text/javascript" src="user_asset/js/jquery.easing.1.3.js"></script>
+            <script type="text/javascript" src="user_asset/js/jquery.elastislide.js"></script>
+            <script type="text/javascript" src="user_asset/js/gallery.js"></script> -->

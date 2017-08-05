@@ -214,21 +214,25 @@ Route::get('logout', [
 Route::group(['prefix' => 'user'], function() {
 	Route::get('login', [
 		'as' => 'getLoginUser',
-		'uses' => 'PageController@getLoginUser'
+		'uses' => 'CustomerController@getLoginUser'
 	]);
 
 	Route::post('login', [
 		'as' => 'postLoginUser',
-		'uses' => 'PageController@postLoginUser'
+		'uses' => 'CustomerController@postLoginUser'
 	]);
 	Route::get('registry',[
 		'as' => 'getRegistryUser',
-		'uses' => 'PageController@getRegistryUser'
+		'uses' => 'CustomerController@getRegistryUser'
 	]);
 
 	Route::post('registry', [
 		'as' => 'postRegistryUser',
-		'uses' => 'PageController@postRegistryUser'
+		'uses' => 'CustomerController@postRegistryUser'
+	]);
+	Route::get('logout', [
+		'as' => 'logoutUser',
+		'uses' => 'CustomerController@getLogoutUser'
 	]);
 });
 
@@ -256,3 +260,8 @@ Route::get('bookTour/{tourId}', [
 	'as' => 'getBookTour',
 	'uses' => 'PageController@getBookTour'
 ]);
+
+Route::post('bookTour', [
+	'as' => 'postBookTour',
+	'uses' => 'PageController@postBookTour'
+])->middleware('LoginCustomer');

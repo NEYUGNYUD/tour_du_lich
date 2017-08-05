@@ -12,36 +12,54 @@ Trang chủ
             <li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="item active">
-                <img src="<?php getUrlThemeActive();?>user_asset/images/sl1.jpg" alt=""  class="slide-image"/>
-                <div class="bs-slider-overlay"></div>
-                <!-- Slide Text Layer -->
-                <div class="slide-text slide_style_center">
-                    <h3 data-animation="animated flipInX">Hè sôi động, nhân rộng niềm vui</h3>
-                    <p data-animation="animated lightSpeedIn">Lựa chọn đúng đắn, giá cả tốt nhất</p>
-                    <a href="" target="_blank" class="btn btn_slide" data-animation="animated fadeInUp">Đặt ngay</a>
+            <!-- slide -->
+            <?php $i = 1; ?>
+            @foreach($topTour as $tour)
+                @if($i == 1)
+                <div class="item active">
+                @else
+                <div class="item">
+                @endif
+
+                @foreach($tourImages as $img)
+                    @if($img->tour_id == $tour->tour_id)
+                        <img src="{{$img->image}}" alt="image tour"  class="slide-image"/>
+                        <div class="bs-slider-overlay"></div>
+                        <?php break;?>
+                    @endif
+                @endforeach
+                    <!-- Slide Text Layer -->
+                    <div class="slide-text slide_style_center">
+                        <h3 data-animation="animated flipInX">
+                            {{$tour->tour_name}}
+                        </h3>
+                        <!-- hành trình tour -->
+                        <p data-animation="animated lightSpeedIn">
+                            <?php
+                                $journey = $tour->journey;//có dạng list các id của các place
+                                $placeList = explode('-', $journey);
+                                $journeyTour = "";
+                                foreach($placeList as $placeId) {
+                                    foreach($places as $place) {
+                                        if($place->place_id == $placeId) {
+                                            $journeyTour .= $place->place_name.', ';
+                                        }
+                                    }
+                                }
+                                //loại bỏ ký tự ', ' cuối cùng trong chuỗi
+                                echo substr($journeyTour,0,-2);
+                            ?>
+                        </p>
+                        <!-- end: hành trình tour -->
+                        <button class="btn btn-warning" data-animation="animated  fadeInUp"><del>{{number_format($tour->base_price)}}</del></button>
+                        <a href="{{asset(route('getBookTour', ['tourId' => $tour->tour_id]))}}" target="_blank" class="btn btn_slide btn-primary" data-animation="animated fadeInUp"><strong>Đặt ngay</strong></a> &nbsp;&nbsp;
+                        <button target="_blank" class="btn btn-danger" data-animation="animated fadeInUp">
+                            <strong>{{number_format($tour->sale_price)}}</strong>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="item">
-                <img src="<?php getUrlThemeActive();?>user_asset/images/sl2.jpg" alt=""  class="slide-image"/>
-                <div class="bs-slider-overlay"></div>
-                <!-- Slide Text Layer -->
-                <div class="slide-text slide_style_center">
-                    <h3 data-animation="animated flipInX">Giá sốc bất ngờ</h3>
-                    <p data-animation="animated lightSpeedIn">Không lo về giá</p>
-                    <a href="" target="_blank" class="btn btn_slide" data-animation="animated fadeInUp">Đặt ngay</a>
-                </div>
-            </div>
-            <div class="item">
-                <img src="<?php getUrlThemeActive();?>user_asset/images/sl2.jpg" alt=""  class="slide-image"/>
-                <div class="bs-slider-overlay"></div>
-                <!-- Slide Text Layer -->
-                <div class="slide-text slide_style_center">
-                    <h3 data-animation="animated flipInX">Đăt tour A được tour B</h3></h3>
-                    <p data-animation="animated lightSpeedIn">Không lo về giá</p>
-                    <a href="" target="_blank" class="btn btn_slide" data-animation="animated fadeInUp">Đặt ngay</a>
-                </div>
-            </div>
+                <?php $i++; ?>
+            @endforeach
         </div>
 
         <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">

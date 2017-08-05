@@ -26,8 +26,7 @@ class AddCustomer extends Request {
 			'address' => 'required|min:3|max:100',
 			'dob' => 'required|date_format:Y-m-d',
 			//không được dùng khoảng trăng trong unique
-			'passport' => 'required|min:11|max:18|unique:tbl_customers,passport',
-			'email' => 'required|email|unique:tbl_customers,email',
+			'email' => 'required|email|unique:tbl_employees,email',
 			'password' => 'required|min:8|max:50',
 			're-password' => 'required|same:password',
 		];
@@ -43,10 +42,6 @@ class AddCustomer extends Request {
 			'address.max' => 'Địa chỉ có chiều dài từ 3 đến 100 ký tự',
 			'dob.required' => 'Chưa nhập ngày sinh',
 			'dob.date_format' => 'Chưa nhập đúng định dạng ngày',
-			'passport.required' => 'Chưa nhập số CMT',
-			'passport.min' => 'Số CMT có chiều dài từ 11 đến 18 ký tự',
-			'passport.max' => 'Số CMT có chiều dài từ 11 đến 18 ký tự',
-			'passport.unique' => 'Số CMT đã bị trùng',
 			'email.required' => 'Chưa nhập email',
 			'email.email' => 'Email không đúng định dạng',
 			'email.unique' => 'Địa chỉ email đã bị trùng',

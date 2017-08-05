@@ -133,9 +133,10 @@ class EmployeeController extends Controller {
 			'locked' => NULL
 		);
 		if(Auth::attempt($infor)) {
+			if(Auth::user()->level == 1 || Auth::user()->level == 0)
 			return redirect()->intended('admin/dashboard');
 		} else {
-			return redirect('admin/login')->with('noti', 'Thông tin đăng nhập không đúng.');
+			return redirect()->route('getLoginAdmin')->with('noti', 'Thông tin đăng nhập không đúng.');
 		}
 	}
 

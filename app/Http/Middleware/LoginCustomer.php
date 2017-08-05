@@ -1,8 +1,8 @@
 <?php namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
+
 use Closure;
 
-class LoginAdmin {
+class LoginCustomer {
 
 	/**
 	 * Handle an incoming request.
@@ -13,14 +13,10 @@ class LoginAdmin {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if(Auth::check()){
-			$employee = Auth::user();
-			if($employee->level == 1) {
-				return $next($request);
-			}
-		} else {
-			return redirect()->intended('admin/login');
+		if(!Auth::check()) {
+			return redirect()->intended('user/login')->with('noti', 'Bạn phải đăng nhập để có thể đặt được tour');
 		}
+		return $next($request);
 	}
 
 }
