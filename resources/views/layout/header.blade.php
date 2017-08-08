@@ -15,12 +15,13 @@
         <link href="user_asset/css/pikaday.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
         @yield('css')
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="<?php getUrlThemeActive();?>user_asset/js/menu.js"></script>
         <script src="<?php getUrlThemeActive();?>user_asset/js/jquery-ui.js"></script>
         <script src="<?php getUrlThemeActive();?>user_asset/js/range.js" type="text/javascript"></script>
         <script type="text/javascript" src="<?php getUrlThemeActive();?>user_asset/js/jquery.leanModal.min.js"></script>
+        @yield('script')
     </head>
     <body>
         <header>

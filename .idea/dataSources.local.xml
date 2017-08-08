@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="viettravel@localhost" uuid="c6e3cff5-ecc0-400e-962f-cefc5f1a1b98">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
+      <user-name>mysql</user-name>
+    </data-source>
+  </component>
+</project>

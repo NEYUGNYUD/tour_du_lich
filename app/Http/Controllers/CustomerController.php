@@ -6,7 +6,7 @@ use App\Http\Requests\AddCustomer;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Employee;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller {
 

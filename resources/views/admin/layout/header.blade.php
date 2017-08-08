@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Khóa Học Lập Trình Laravel Framework 5.x Tại Khoa Phạm">
     <meta name="author" content="">
-    <title>@yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <title>@yield('title')</title>
+    {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="http://localhost/tour_v2/public/admin_asset/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 

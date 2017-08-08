@@ -258,10 +258,24 @@ Route::get('contact', [
 
 Route::get('bookTour/{tourId}', [
 	'as' => 'getBookTour',
-	'uses' => 'PageController@getBookTour'
+	'uses' => 'PageController@getBookTour',
+    'middleware' => 'loginCustomer'
 ]);
 
 Route::post('bookTour', [
-	'as' => 'postBookTour',
-	'uses' => 'PageController@postBookTour'
-])->middleware('LoginCustomer');
+    'as' => 'postBookTour',
+    'uses' => 'PageController@postBookTour',
+    'middleware' => 'loginCustomer'
+]);
+
+Route::post('pay', [
+        'as' => 'postPayTour',
+        'uses' => 'PageController@postPayTour'
+]);
+
+Route::post('confirmBookTour', [
+    'as' => 'postComfirmBookTour',
+    'uses' => 'PageController@postComfirmBookTour'
+]);
+
+

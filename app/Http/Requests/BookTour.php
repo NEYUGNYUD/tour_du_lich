@@ -43,4 +43,5 @@ class BookTour extends Request {
 			'child.numeric' => 'Không nhập đúng số lượng khách từ 7 đến 14 tuổi',
 		];
 	}
+	
 }
