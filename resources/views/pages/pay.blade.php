@@ -168,26 +168,31 @@
                         </div>
                         <div id="mda-guest-b" class="">
                             <div class="form-group col-md-4">
-                                <label for="phone">Số điện thoại *:<span id="bookPhoneError" class="error"></span></label>
-                                <input data-error="#bookPhoneError" type="text" name="phone" id="phone" class="form-control numeric" value="{{$inforBookTour['phone']}}">
+                                <label for="phone">Email :<span id="bookPhoneError" class="error"></span></label>
+                                <input data-error="#bookPhoneError" readonly type="text" name="email" id="email" class="form-control numeric" value="{{$customer->email}}">
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="address">Địa chỉ *:<span id="bookAddressError" class="error"></span></label>
-                                <input data-error="#bookAddressError" type="text" name="address" id="address" class=" form-control " value="{{$inforBookTour['address']}}">
+                                <label for="phone">Số điện thoại :<span id="bookPhoneError" class="error"></span></label>
+                                <input data-error="#bookPhoneError" readonly type="text" name="phone" id="phone" class="form-control numeric" value="{{$customer->phone_number}}">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="address">Địa chỉ :<span id="bookAddressError" class="error"></span></label>
+                                <input data-error="#bookAddressError" readonly type="text" name="address" id="address" class=" form-control " value="{{$customer->address}}">
                             </div>
 
                             <p class="clearfix"></p>
                             <div class="form-group col-md-4">
                                 <label for="adult">Người lớn: </label>
-                                <input type="number" name="adult" id="adult"
+                                <input type="number" name="adult" id="adult" readonly
                                        class="form-control mda-quantity tour-quantity1 q-adult1" min="1"
                                        value="{{$inforBookTour['adult']}}"/>
 
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="child">Trẻ em(7 - 14 tuổi ): </label>
-                                <input type="number" name="child" id="child"
+                                <input type="number" name="child" id="child" readonly
                                        class="form-control mda-quantity tour-quantity1 q-child1" min="0"
                                        value="{{$inforBookTour['child']}}"/>
                             </div>
@@ -220,8 +225,7 @@
                                 <td colspan="5"></td>
                                 <td colspan="3"><strong>Mã giảm giá</strong></td>
                                 <td class="price right">
-                                    {{--<input type="text" value="{{$inforBookTour['discount']}}" />--}}
-                                    <strong style="font-size: 1.5em;">{{$inforBookTour['discount']}}</strong>
+                                    <strong style="font-size: 1.5em;">{{$inforBookTour['discount']}} - Trị giá: </strong>
                                     <span class="mda-money" id="sumary" style="max-width: 80px; text-align:right"></span>
                                 </td>
                             </tr>
@@ -230,7 +234,6 @@
                                 <td colspan="5"></td>
                                 <td colspan="3"><strong>Tổng giá trị tour</strong></td>
                                 <td class="price right">
-                                {{--<input type="text" value="{{$inforBookTour['discount']}}" />--}}
                                 <strong style="font-size: 1.5em;"><u>{{number_format($inforBookTour['basePrice'])}} Đ</u></strong>
                                 <span class="mda-money" id="sumary" style="max-width: 80px; text-align:right"></span>
                                 </td>
@@ -240,7 +243,6 @@
                                 <td colspan="5"></td>
                                 <td colspan="3"><strong>Thanh toán</strong></td>
                                 <td class="price right">
-                                {{--<input type="text" name="totalPrice" readonly value="{{number_format($inforBookTour['totalPrice'])}}" />--}}
                                 <strong style="font-size: 2em;"><u>{{number_format($inforBookTour['totalPrice'])}} Đ</u></strong>
                                 <span class="mda-money" id="payprice" style="max-width: 80px; text-align:right"></span>
                                 </td>
@@ -255,11 +257,11 @@
                     style="font-weight: bold; color: red">Hình thức thanh toán</span>
                     </div>
                     <label class="radio-inline">
-                    <input type="radio" name="paymethod" checked value="mallualy"
+                    <input type="radio" name="paymethod" checked value="0"
                     class="payment-method"><strong>Thanh toán tại công ty</strong>
                     </label>
                     <label class="radio-inline">
-                    <input type="radio" name="paymethod" value="bankCard" class="payment-method"><strong>Thanh
+                    <input type="radio" name="paymethod" value="1" class="payment-method"><strong>Thanh
                     toán qua thẻ ngân hàng</strong>
                     </label>
                     </div>
@@ -309,7 +311,7 @@
                     </div>
                     <br/>
                     <div class="pull-left">
-                    <label class="radio-inline"><input type="checkbox" name id="accept-policy" required><strong> Tôi
+                    <label class="radio-inline"><input type="checkbox" name="acceptPolice" id="accept-policy" required><strong> Tôi
                     đã đọc và chấp nhận điều khoản trên</strong></label>
                     </div>
 

@@ -1,11 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use function compact;
-use function dd;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\LoginRequest;
 use App\Http\Requests;
 
 use Illuminate\Support\Facades\View;
@@ -16,9 +13,8 @@ use App\Customer;
 use App\TourCoupon;
 use App\Http\Requests\AddCustomer;
 use App\Http\Requests\BookTour;
-use function session_start;
+use App\Http\Requests\ConfirmBookTour;
 use function var_dump;
-
 
 class PageController extends Controller
 {
@@ -115,17 +111,14 @@ class PageController extends Controller
         $bookTourInfor['tourId'] = $request->tourId;
         $bookTourInfor['adult'] = $request->adult;
         $bookTourInfor['child'] = $request->child;
-        $bookTourInfor['phone'] = $request->phone;
-        $bookTourInfor['address'] = $request->address;
         $bookTourInfor['discount'] = $request->discountCode;
-
         $tour = Tour::find($bookTourInfor['tourId']);
         $codeId = $tour->discount_code_id;
         $salePrice = $tour->sale_price;
         $relativeTours = DB::table('tbl_tours')->select('tour_id', 'tour_name', 'base_price', 'sale_price')->where('locked', '=', NULL)->take(3)->get();
         $tongBanDau = $bookTourInfor['adult'] * $salePrice + $bookTourInfor['child'] * ($salePrice) * (100 - $percentForChild) / 100;
         $isDiscount = DB::table('tbl_discount_codes')->select('discount_code_name', 'money')->where('discount_code_id', '=', $codeId)->where('end_date', '>', date('Y-m-d H:i:s'))->first();
-        if (trim($bookTourInfor['discount']) == $isDiscount->discount_code_name) {
+        if ((trim($bookTourInfor['discount']) == $isDiscount->discount_code_name) && $isDiscount != NULL) {
             $tongTien = $bookTourInfor['adult'] * $salePrice + $bookTourInfor['child'] * ($salePrice) * (100 - $percentForChild) / 100 - $isDiscount->money;
         } else {
             $bookTourInfor['discount'] = 'Không hợp lệ';
@@ -137,8 +130,10 @@ class PageController extends Controller
         return view('pages.pay', compact('tour', 'relativeTours'));
     }
 
-    public function postComfirmBookTour() {
-
+    public function postComfirmBookTour(ConfirmBookTour $request) {
+        session_start();
+        dd($request);
+        $_SESSION['bookTourInfor'];
     }
 }
 

@@ -223,17 +223,17 @@
                     </div>
                     <div id="mda-guest-b" class="">
 
-                        <div class="form-group col-md-4">
-                            <label for="phone">Số điện thoại *:<span id="bookPhoneError" class="error"></span></label>
-                            <input data-error="#bookPhoneError" type="text" name="phone" id="phone"
-                                   class="form-control numeric" placeholder="Nhập số điện thoại" required>
-                        </div>
+                        {{--<div class="form-group col-md-4">--}}
+                            {{--<label for="phone">Số điện thoại *:<span id="bookPhoneError" class="error"></span></label>--}}
+                            {{--<input data-error="#bookPhoneError" type="text" name="phone" id="phone"--}}
+                                   {{--class="form-control numeric" placeholder="Nhập số điện thoại" required>--}}
+                        {{--</div>--}}
 
-                        <div class="form-group col-md-4">
-                            <label for="address">Địa chỉ *:<span id="bookAddressError" class="error"></span></label>
-                            <input data-error="#bookAddressError" type="text" name="address" id="address"
-                                   class=" form-control " placeholder="Nhập địa chỉ" required>
-                        </div>
+                        {{--<div class="form-group col-md-4">--}}
+                            {{--<label for="address">Địa chỉ *:<span id="bookAddressError" class="error"></span></label>--}}
+                            {{--<input data-error="#bookAddressError" type="text" name="address" id="address"--}}
+                                   {{--class=" form-control " placeholder="Nhập địa chỉ" required>--}}
+                        {{--</div>--}}
 
                         <p class="clearfix"></p>
                         <div class="form-group col-md-4">

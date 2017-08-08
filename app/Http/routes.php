@@ -269,13 +269,15 @@ Route::post('bookTour', [
 ]);
 
 Route::post('pay', [
-        'as' => 'postPayTour',
-        'uses' => 'PageController@postPayTour'
+    'as' => 'postPayTour',
+    'uses' => 'PageController@postPayTour',
+    'middleware' => 'loginCustomer'
 ]);
 
 Route::post('confirmBookTour', [
     'as' => 'postComfirmBookTour',
-    'uses' => 'PageController@postComfirmBookTour'
+    'uses' => 'PageController@postComfirmBookTour',
+    'middleware' => 'loginCustomer'
 ]);
 
 

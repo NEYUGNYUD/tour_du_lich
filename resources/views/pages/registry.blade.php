@@ -47,12 +47,13 @@
                     <input type="radio" name="gender" id="female" value="0"/> Nữ
                 </div>
             </div>
-            <!-- <div class="form-group">
-                <label class="col-sm-3" for="passport" >Số CMT *</label>
+            <div class="form-group">
+                <label class="col-sm-3" for="dob">Số điện thoại *</label>
                 <div class="col-sm-9">
-                    <input type="number" name="passport" id="passport" class="form-control" value="{{old('passport')}}" required/>
+                    <input type="number" name="phone" id="phone" class="form-control" value="{{old('phone')}}" required/>
                 </div>
-            </div> -->
+            </div>
+
             <div class="form-group">
                 <label class="col-sm-3" for="email" >Email *</label>
                 <div class="col-sm-9">

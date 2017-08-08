@@ -11,7 +11,7 @@ class ConfirmBookTour extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,8 +22,16 @@ class ConfirmBookTour extends Request {
 	public function rules()
 	{
 		return [
-			//
+            'acceptPolice' => 'required',
+            'paymethod' => 'required',
 		];
 	}
 
+	public function messages()
+    {
+        return [
+            'acceptPolice.required' => 'Bạn chưa đồng ý với điều khoản của chúng tôi',
+            'paymethod.required' => 'Bạn chưa chọn phương thức thanh toán'
+        ];
+    }
 }
