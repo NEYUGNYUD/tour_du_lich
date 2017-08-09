@@ -209,7 +209,7 @@
                 <div class="alert alert-success">
                     {{session("noti")}}
                 </div>
-        @endif
+            @endif
         <!-- end: thông báo lỗi -->
             <form action="{{asset(route('postPayTour'))}}" id="booktour-form" method="post"
                   style="background-color: #b2dba1; padding: 10px">

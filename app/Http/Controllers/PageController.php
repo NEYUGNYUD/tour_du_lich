@@ -11,10 +11,8 @@ use App\Tour;
 use App\Place;
 use App\Customer;
 use App\TourCoupon;
-use App\Http\Requests\AddCustomer;
 use App\Http\Requests\BookTour;
 use App\Http\Requests\ConfirmBookTour;
-use function var_dump;
 
 class PageController extends Controller
 {
@@ -118,7 +116,7 @@ class PageController extends Controller
         $relativeTours = DB::table('tbl_tours')->select('tour_id', 'tour_name', 'base_price', 'sale_price')->where('locked', '=', NULL)->take(3)->get();
         $tongBanDau = $bookTourInfor['adult'] * $salePrice + $bookTourInfor['child'] * ($salePrice) * (100 - $percentForChild) / 100;
         $isDiscount = DB::table('tbl_discount_codes')->select('discount_code_name', 'money')->where('discount_code_id', '=', $codeId)->where('end_date', '>', date('Y-m-d H:i:s'))->first();
-        if ((trim($bookTourInfor['discount']) == $isDiscount->discount_code_name) && $isDiscount != NULL) {
+        if ($isDiscount != [] && (trim($bookTourInfor['discount']) == $isDiscount->discount_code_name)) {
             $tongTien = $bookTourInfor['adult'] * $salePrice + $bookTourInfor['child'] * ($salePrice) * (100 - $percentForChild) / 100 - $isDiscount->money;
         } else {
             $bookTourInfor['discount'] = 'Không hợp lệ';
@@ -130,10 +128,22 @@ class PageController extends Controller
         return view('pages.pay', compact('tour', 'relativeTours'));
     }
 
-    public function postComfirmBookTour(ConfirmBookTour $request) {
+    public function postConfirmBookTour(ConfirmBookTour $request) {
         session_start();
-        dd($request);
-        $_SESSION['bookTourInfor'];
+        $bookTourInfor = $_SESSION['bookTourInfor'];
+        $idTour = $bookTourInfor['tourId'];
+        $TourCoupon = new TourCoupon();
+        $TourCoupon->employee_id = $bookTourInfor['customerId'];
+        $TourCoupon->tour_id = $bookTourInfor['tourId'];
+        $TourCoupon->children_number = $bookTourInfor['child'];
+        $TourCoupon->adult_number = $bookTourInfor['adult'];
+        $TourCoupon->price = $bookTourInfor['totalPrice'];
+        $TourCoupon->payment = $request->paymethod;
+        $TourCoupon->created_at = date('Y-m-d H:i:s');
+        $TourCoupon->updated_at = date('Y-m-d H:i:s');
+        $TourCoupon->save();
+        session_destroy();
+        return redirect()->route('getBookTour', ['tourId' => $idTour])->with('noti', 'Bạn đã đặt tour thành công');
     }
 }
 

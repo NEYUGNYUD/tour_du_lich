@@ -276,7 +276,7 @@ Route::post('pay', [
 
 Route::post('confirmBookTour', [
     'as' => 'postComfirmBookTour',
-    'uses' => 'PageController@postComfirmBookTour',
+    'uses' => 'PageController@postConfirmBookTour',
     'middleware' => 'loginCustomer'
 ]);
 
