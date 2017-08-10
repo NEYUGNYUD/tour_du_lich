@@ -11,7 +11,7 @@ class EditTourCoupon extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,8 +22,20 @@ class EditTourCoupon extends Request {
 	public function rules()
 	{
 		return [
-			//
-		];
+            'child' => 'required|numeric',
+            'adult' => 'required|min:1|numeric',
+            'note' => 'required|min:5'
+        ];
 	}
 
+	public function messages() {
+	    return [
+            'child.required' => 'Chưa nhập số trẻ em',
+            'child.numeric' => 'Số trẻ em không đúng',
+            'adult.required' => 'Chưa nhập số người lớn',
+            'adult.numeric' => 'Số người lớn không đúng',
+            'note.required' => 'Chưa nhập ghi chú',
+            'note.min' => 'Ghi chú phải có chiều dài tối đa 5 ký tự'
+        ];
+    }
 }

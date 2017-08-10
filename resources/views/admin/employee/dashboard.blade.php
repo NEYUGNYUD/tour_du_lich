@@ -18,19 +18,20 @@
             <h3>Tour du lịch</h3>
         </div>
 
-        <div class="">
-            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                    <th>Tổng số tour</th>
-                    <th>Số tour khách đã đặt</th>
-                    <th></th>
-                </thead>
+        {{--<div class="">--}}
+            {{--<table class="table table-striped table-bordered table-hover" id="dataTables-example">--}}
+                {{--<thead>--}}
+                    {{--<th>Tổng số tour</th>--}}
+                    {{--<th>Số tour khách đã đặt</th>--}}
+                    {{--<th></th>--}}
+                {{--</thead>--}}
 
-                <tbody>
+                {{--<tbody>--}}
 
-                </tbody>
-            </table>
-        </div>
+                {{--</tbody>--}}
+            {{--</table>--}}
+        {{--</div>--}}
+
     </div>
 </div>
 @endsection

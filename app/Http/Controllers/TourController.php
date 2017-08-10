@@ -153,7 +153,10 @@ class TourController extends Controller {
 	*/
 	public function destroy($id)
 	{
-		//
+		$tour = Tour::find($id);
+		$tour->locked = 1;
+		$tour->save();
+		return redirect()->back();
 	}
 
 	public function getTourImage($id) {

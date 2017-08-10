@@ -154,6 +154,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'loginEmployee'], function() 
 			'as' => 'postEditTour',
 			'uses' => 'TourController@update'
 		]);
+
+		Route::get('deleteTour/{id}', [
+		    'as' => 'deleteTour',
+            'uses' => 'TourController@destroy'
+        ]);
+
 		Route::get('image/{id}', [
 			'as' => 'listTourImage',
 			'uses' => 'TourController@getTourImage'
@@ -164,7 +170,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'loginEmployee'], function() 
 			'uses' => 'TourController@postAddTourImage'
 		]);
 
-		Route::get('deleteImage/{imageId}/{tourId}', [
+		Route::get('delete/{imageId}/{tourId}', [
 			'as' => 'deleteImage',
 			'uses' => 'TourController@deleteImage'
 		]);
@@ -186,6 +192,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'loginEmployee'], function() 
 			'as' => 'postAddTourCoupon',
 			'uses' => 'TourCouponController@store'
 		]);
+
+		Route::get('judge', [
+            'as' => 'getJudgeTourCoupon',
+            'uses' => 'TourCouponController@listNewTourCoupon'
+        ]);
+
+		Route::get('edit/{tourCouponId}', [
+		    'as' => 'getEditTourCoupon',
+            'uses' => 'TourCouponController@edit'
+        ]);
+
+		Route::post('post', [
+		    'as' => 'postEditTourCoupon',
+            'uses' => 'TourCouponController@update'
+        ]);
+
+		Route::get('delete/{tourCouponId}', [
+		    'as' => 'deleteTourCoupon',
+            'uses' => 'TourCouponController@destroy'
+        ]);
 	});
 
 	//ảnh tour
@@ -212,6 +238,7 @@ Route::get('logout', [
 ]);
 
 Route::group(['prefix' => 'user'], function() {
+
 	Route::get('login', [
 		'as' => 'getLoginUser',
 		'uses' => 'CustomerController@getLoginUser'
@@ -221,6 +248,7 @@ Route::group(['prefix' => 'user'], function() {
 		'as' => 'postLoginUser',
 		'uses' => 'CustomerController@postLoginUser'
 	]);
+
 	Route::get('registry',[
 		'as' => 'getRegistryUser',
 		'uses' => 'CustomerController@getRegistryUser'
@@ -234,6 +262,16 @@ Route::group(['prefix' => 'user'], function() {
 		'as' => 'logoutUser',
 		'uses' => 'CustomerController@getLogoutUser'
 	]);
+
+	Route::get('editAccountCustomer/{customerId}', [
+	    'as' => 'getEditAccountCustomer',
+        'uses' => 'CustomerController@getEditAccountCustomer'
+    ]);
+
+	Route::post('postEditAccountCustomer', [
+	    'as' => 'postEditAccountCustomer',
+        'uses' => 'CustomerController@update'
+    ]);
 });
 
 Route::get('listtour/{idPlace}', [

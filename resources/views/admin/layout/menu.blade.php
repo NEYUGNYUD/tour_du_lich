@@ -11,17 +11,26 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
+        {{--thông báo--}}
+
+        {{--end: thông báo--}}
+
         <!-- /.dropdown -->
-        @if(isset($loginInfor))
+        @if(isset($adminInfor))
         <li class="dropdown" style="text-align: right;">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <img src='{{$loginInfor->avatar}}' width="5%" height="5%" alt="avatar" class="img-rounded"/>
-                        <strong>{{$loginInfor->employee_name}}</strong>
-                        <i class="fa fa-caret-down"></i>
-                    </a>
+                <a href="{{asset(route('getJudgeTourCoupon'))}}" style="display: inline;">
+                    <i class="fa fa-bell" aria-hidden="true">
+                        <strong><sub style="color: #FF0000;">{{$tourCouponsNewNumber}}</sub></strong>
+                    </i>
+                </a>
+                <a data-toggle="dropdown" href="#">
+                    <img src='{{$adminInfor->avatar}}' width="5%" height="5%" alt="avatar" class="img-rounded"/>
+                    <strong>{{$adminInfor->employee_name}}</strong>
+                    <i class="fa fa-caret-down"></i>
+                </a>
             <ul class="dropdown-menu dropdown-user">
                 <li style="text-align: center;">
-                    @if($loginInfor->level == 1)
+                    @if($adminInfor->level == 1)
                         <i>Administrator</i>
                     @else
                         <i>Employee</i>
@@ -61,7 +70,7 @@
                 <li>
                     <a href="{{asset(route('getDashBoard'))}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
-                @if($loginInfor->locked == NULL && $loginInfor->level == 1)
+                @if($adminInfor->locked == NULL && $adminInfor->level == 1)
                 <li>
                     <a href="#"><i class="fa fa-users fa-fw"></i>Nhân viên<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

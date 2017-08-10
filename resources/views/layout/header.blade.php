@@ -33,13 +33,11 @@
                         </div>
                         <div class="col-sm-6 col-xs-12 head_list">
                             <ul class="list-inline">
-                                <!-- <li><a href="{{asset(route('getLoginAdmin'))}}"><i class="fa fa-laptop" aria-hidden="true"></i> Nhà quản lý</a></li> -->
                                 @if(isset($customer))
-                                    <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>
+                                    <li><a href="{{asset(route('getEditAccountCustomer', ['customerId' => $customer->employee_id]))}}"><i class="fa fa-user" aria-hidden="true"></i>
                                         {{$customer->employee_name}}
                                     </a></li>
                                     <li><a href="{{asset(route('logoutUser'))}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a></li>
-                                    <li><a href="#"><i class="icon-edit" aria-hidden="true"></i> Thông tin người dùng</a></li>
                                     @else
                                     <li><a href="{{asset(route('getLoginUser'))}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</a></li>
                                     <li><a href="{{asset(route('getRegistryUser'))}}"><i class="fa fa-key" aria-hidden="true"></i> Đăng ký</a></li>

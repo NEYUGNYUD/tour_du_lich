@@ -15,7 +15,9 @@ abstract class Controller extends BaseController {
 		$placesOfMenu = DB::table('tbl_places')->select('place_id', 'place_name', 'image', 'parent_id', 'description')->get();
 		View::share('placesOfMenu', $placesOfMenu);
 		if(Auth::check()) {
-			return View::share('loginInfor', Auth::user());
+			View::share('adminInfor', Auth::user());
 		}
+		$tourCouponsNewNumber = DB::table('tbl_tour_coupons')->where('status', '=', NULL)->count();
+		View::share('tourCouponsNewNumber', $tourCouponsNewNumber);
 	}
 }

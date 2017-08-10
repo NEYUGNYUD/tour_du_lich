@@ -40,7 +40,11 @@
                     @if(isset($tours))
                         <?php $i = 1; ?>
                         @foreach($tours as $tour)
-                        <tr align="center">
+                            @if($tour->locked == NULL)
+                            <tr align="center">
+                            @else
+                            <tr align="center" style="background-color: #FF8A80;">
+                            @endif
                             <td>{{$i}}</td>
                             <td>{{$tour->tour_name}}</td>
                             <td>{{$tour->base_price}}</td>
@@ -114,7 +118,7 @@
                             <td>{{$tour->created_at}}</td>
                             <td>{{$tour->updated_at}}</td>
                             <td class="center">
-                                <a href=""><i class="fa fa-trash-o  fa-fw"></i></a><br />
+                                <a href="{{asset(route('deleteTour', ['id' => $tour->tour_id]))}}"><i class="fa fa-trash-o  fa-fw"></i></a><br />
                                 <a href="{{asset(route('getEditTour',['id' => $tour->tour_id]))}}"><i class="fa fa-pencil fa-fw"></i></a><br />
                                 <a href="{{asset(route('listTourImage', ['id' => $tour->tour_id]))}}"><i class="fa fa-picture-o fa-fw"></i></a>
                             </td>

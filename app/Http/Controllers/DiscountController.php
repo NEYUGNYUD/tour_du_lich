@@ -50,7 +50,6 @@ class DiscountController extends Controller {
         $discountCode->end_date = $time;
         $discountCode->money = $request->money;
         $discountCode->description = $request->description;
-        $discountCode->employee_id = 19;
         $discountCode->created_at = date('Y-m-d h:i:s');
         $discountCode->updated_at = date('Y-m-d h:i:s');
         $discountCode->save();
@@ -100,7 +99,6 @@ class DiscountController extends Controller {
         $discountCode->end_date = $time;
         $discountCode->money = $request->money;
         $discountCode->description = $request->description;
-        $discountCode->employee_id = 20;
         $discountCode->created_at = date('Y-m-d h:i:s');
         $discountCode->updated_at = date('Y-m-d h:i:s');
         $discountCode->save();

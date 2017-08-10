@@ -13,7 +13,7 @@ class LoginEmployee {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if(!Auth::check()) {
+		if(!Auth::check() && (Auth::user()->level == 1 || Auth::user()->level == 0)) {
 			return redirect()->intended('admin/login');
 		}
 		return $next($request);
