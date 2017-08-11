@@ -18,8 +18,14 @@ class TourCouponController extends Controller {
 	 */
 	public function index()
 	{
-		//
-	}
+        $newTourCoupons = DB::table('tbl_tour_coupons')
+            ->join('tbl_tours', 'tbl_tour_coupons.tour_id', '=', 'tbl_tours.tour_id')
+            ->join('tbl_employees', 'tbl_tour_coupons.employee_id', '=', 'tbl_employees.employee_id')
+            ->select('tbl_tour_coupons.*', 'tbl_tours.tour_name', 'tbl_tours.begin_time', 'tbl_employees.email')
+            ->get();
+        return view('admin.tour_coupon.judge', compact('newTourCoupons'));
+
+    }
 
 	/**
 	 * Show the form for creating a new resource.

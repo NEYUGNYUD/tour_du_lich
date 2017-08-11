@@ -45,7 +45,7 @@ class PageController extends Controller
         $tourVehicles = DB::table('tbl_vehicles')->select('vehicle_id', 'class_name')->get();
         View::share('tourVehicles', $tourVehicles);
 
-        $listTours = DB::table('tbl_tours')->where('locked', '=', NULL)->paginate(8);
+        $listTours = DB::table('tbl_tours')->where('locked', '=', NULL)->paginate(5);
         View::share('listTours', $listTours);
         if (Auth::check()) {
             if (Auth::user()->level == 2)
@@ -77,7 +77,7 @@ class PageController extends Controller
         // dd($destinationPlace);
         $startPlace = $request->startPlace;
         $startTimeTour = $request->startTimeTour;
-        $resultTour = DB::table('tbl_tours')->where('journey', 'like', "%$destinationPlace%")->where('start_place', '=', $startPlace)->where('begin_time', '=', $startTimeTour)->where('locked', '=', NULL)->paginate(10);
+        $resultTour = DB::table('tbl_tours')->where('journey', 'like', "%$destinationPlace%")->where('start_place', '=', $startPlace)->where('begin_time', '=', $startTimeTour)->where('locked', '=', NULL)->paginate(5);
         return view('pages.listtour', compact('resultTour'));
     }
 
@@ -88,7 +88,7 @@ class PageController extends Controller
 
     public function getListTour($idPlace)
     {
-        $resultTour = DB::table('tbl_tours')->where('journey', 'like', "%$idPlace%")->where('locked', '=', NULL)->paginate(8);
+        $resultTour = DB::table('tbl_tours')->where('journey', 'like', "%$idPlace%")->where('locked', '=', NULL)->paginate(5);
         return view('pages.listtour', compact('resultTour'));
     }
 

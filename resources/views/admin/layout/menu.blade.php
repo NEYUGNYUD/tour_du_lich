@@ -156,9 +156,9 @@
                         <li>
                             <a href="{{asset(route('listTourCoupon'))}}">Danh sách phiếu tour</a>
                         </li>
-                        <li>
-                            <a href="{{asset(route('getAddTourCoupon'))}}">Thêm phiếu tour</a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="{{asset(route('getAddTourCoupon'))}}">Thêm phiếu tour</a>--}}
+                        {{--</li>--}}
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

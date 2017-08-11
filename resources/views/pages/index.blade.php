@@ -74,19 +74,19 @@ Trang chủ
 <!-- end: slide -->
     <div class="row show_result">
         <div class="col-sm-6">
-            <!-- <p>Hiển thị <strong>10</strong> trong tổng số <strong>500</strong> tour du lịch</p> -->
+            <p><h3>Danh sách tour du lịch</h3></p>
         </div>
-        <div class="col-sm-3 col-sm-offset-3">
-            <select class="form-control">
-                <option>Sắp xếp theo</option>
-                <option>Mới nhất</option>
-                <option>Giá rẻ nhất</option>
-                <option>Đánh giá tốt nhất</option>
-            </select>
-        </div>
+        {{--<div class="col-sm-3 col-sm-offset-3">--}}
+            {{--<select class="form-control">--}}
+                {{--<option>Sắp xếp theo</option>--}}
+                {{--<option>Mới nhất</option>--}}
+                {{--<option>Giá rẻ nhất</option>--}}
+                {{--<option>Đánh giá tốt nhất</option>--}}
+            {{--</select>--}}
+        {{--</div>--}}
     </div>
 
-    <!-- Danh sách 10 tour du lịch -->
+    <!-- Danh sách 5 tour du lịch -->
 
     @foreach($listTours as $tour)
         <div class="hotel_item row">

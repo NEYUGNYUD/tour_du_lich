@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('title')
-    List new tour coupon
+    List tour coupon
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Phiếu tour
-                        <small>Danh sách tour mới đặt</small>
+                        <small>Danh sách phiếu tour</small>
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
