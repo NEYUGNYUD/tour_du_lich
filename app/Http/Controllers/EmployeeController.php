@@ -8,6 +8,7 @@ use App\Http\Requests\EditEmployee;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use function session_start;
 
 class EmployeeController extends Controller {
 

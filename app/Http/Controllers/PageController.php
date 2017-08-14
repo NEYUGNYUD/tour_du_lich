@@ -3,7 +3,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests;
+use App\Http\Requests\Request;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -73,6 +73,7 @@ class PageController extends Controller
 
     public function postSearchTour(Request $request)
     {
+        echo 'a'; die();
         $destinationPlace = $request->destinationPlace;
         // dd($destinationPlace);
         $startPlace = $request->startPlace;

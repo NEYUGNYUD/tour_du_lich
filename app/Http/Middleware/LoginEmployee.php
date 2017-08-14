@@ -2,6 +2,8 @@
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use function session_start;
+
 class LoginEmployee {
 
 	/**
@@ -13,10 +15,11 @@ class LoginEmployee {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if(!Auth::check() && (Auth::user()->level == 1 || Auth::user()->level == 0)) {
+        if(Auth::user()->level == 1 || Auth::user()->level == 0) {
+    		return $next($request);
+		} else {
 			return redirect()->intended('admin/login');
-		}
-		return $next($request);
+        }
 	}
 
 }

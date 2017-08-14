@@ -1,6 +1,7 @@
 <?php namespace App\Http\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Closure;
+use function session_start;
 
 class LoginAdmin {
 
@@ -13,11 +14,8 @@ class LoginAdmin {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if(Auth::check()){
-			$employee = Auth::user();
-			if($employee->level == 1) {
+		if(Auth::user()->level == 1){
 				return $next($request);
-			}
 		} else {
 			return redirect()->intended('admin/login');
 		}
